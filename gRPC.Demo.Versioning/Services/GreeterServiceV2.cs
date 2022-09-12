@@ -1,10 +1,9 @@
 using Greet.V2;
 using Grpc.Core;
-using gRPC.Basic;
 
-namespace gRPC.Basic.Services;
+namespace gRPC.Demo.Versioning.Services;
 
-public class GreeterServiceV2 : Greeter.GreeterBase
+public class GreeterServiceV2 : Greet.V2.Greeter.GreeterBase
 {
     private readonly ILogger<GreeterServiceV2> _logger;
 

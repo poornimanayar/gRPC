@@ -1,4 +1,3 @@
-using gRPC.Basic.Services;
 using gRPC.Demo.Versioning.Services;
 
 var builder = WebApplication.CreateBuilder(args);

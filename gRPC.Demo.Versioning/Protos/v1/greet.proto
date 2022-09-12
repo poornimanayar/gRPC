@@ -3,6 +3,8 @@ syntax = "proto3";
 //can be omitted or a v1 namespace set
 //option csharp_namespace = "gRPC.Demo";
 
+//name of the package
+//also the namespace for the generated code
 package greet.v1;
 
 // The greeting service definition.

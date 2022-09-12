@@ -3,7 +3,7 @@ using Grpc.Core;
 
 namespace gRPC.Demo.Versioning.Services;
 
-public class GreeterServiceV1 : Greeter.GreeterBase
+public class GreeterServiceV1 : Greet.V1.Greeter.GreeterBase
 {
     private readonly ILogger<GreeterServiceV1> _logger;
 

@@ -5,6 +5,7 @@ syntax = "proto3";
 option csharp_namespace = "gRPC.Basic";
 
 //namespace of the protocol buffer messages, helps prevent namespace clashes 
+//namespace of generated code if csharp_namespace is not specified
 package greet;
 
 // The greeting service definition.
@@ -14,11 +15,13 @@ service Greeter {
 }
 
 // The request message 
+//no concept of null fields, always assumes default value for the data type
 message HelloRequest {
   string name = 1;
 }
 
 // The response message
+//no concept of null fields, always assumes default value for the data type
 message HelloReply {
   string message = 1;
 
