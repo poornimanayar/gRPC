@@ -9,6 +9,7 @@ var client = new Greeter.GreeterClient(channel);
 
 var response = client.SayHello(new HelloRequest() { Name = "client"});
 
+Console.WriteLine("===========OUTPUT===================");
 Console.WriteLine($"Message from server - {response.Message}");
 
 Console.ReadLine();

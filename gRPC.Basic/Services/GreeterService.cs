@@ -1,5 +1,4 @@
 using Grpc.Core;
-using gRPC.Basic;
 
 namespace gRPC.Basic.Services;
 
@@ -20,7 +19,8 @@ public class GreeterService : Greeter.GreeterBase
     /// <returns></returns>
     public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
     {
-        Console.WriteLine(request.Name);
+        Console.WriteLine("===========OUTPUT===================");
+        Console.WriteLine($"Message from client - {request.Name}");
         Console.WriteLine($"Peer - {context.Peer} - Host {context.Host}");
         return Task.FromResult(new HelloReply
         {

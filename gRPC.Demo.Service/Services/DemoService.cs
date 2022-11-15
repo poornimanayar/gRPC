@@ -6,6 +6,7 @@ namespace gRPC.Demo.Service.Services
     {
         public override Task<ReplyMessage> Unary(RequestMessage request, ServerCallContext context)
         {
+            Console.WriteLine("===========OUTPUT===================");
             Console.WriteLine($"Message recieved -  {request.MessageValue}");
 
             return Task.FromResult(new ReplyMessage() { MessageValue = $"Processed {request.MessageValue}" });
@@ -14,7 +15,8 @@ namespace gRPC.Demo.Service.Services
         public override async Task ServerStreamDemo(RequestMessage request, 
             IServerStreamWriter<ReplyMessage> responseStream, ServerCallContext context)
         {
-            Console.WriteLine($"{request.MessageValue}");
+            Console.WriteLine("===========OUTPUT===================");
+            Console.WriteLine($"Message from client - {request.MessageValue}");
 
             for (int i = 1; i <= 10; i++)
             {
@@ -23,7 +25,7 @@ namespace gRPC.Demo.Service.Services
                     MessageValue = "Hello " + i
                 };
 
-                Console.WriteLine($"Sending -  {message}");
+                Console.WriteLine($"Sending to client -  {message}");
 
                 //place a message to the stream, immediately available to the client
                 await responseStream.WriteAsync(message);
@@ -35,10 +37,11 @@ namespace gRPC.Demo.Service.Services
         {
             int messageCount = 0;
 
+            Console.WriteLine("===========OUTPUT===================");
             //advance the stream reader to the next element, returns false if end of stream has reached
             while (await requestStream.MoveNext())
             {
-                Console.WriteLine($"Message received -  {requestStream.Current}");
+                Console.WriteLine($"Message received from client -  {requestStream.Current}");
                 messageCount++;
             }
 
@@ -49,13 +52,14 @@ namespace gRPC.Demo.Service.Services
         public override async Task BidirectionalStreamDemo(IAsyncStreamReader<RequestMessage> requestStream, 
             IServerStreamWriter<ReplyMessage> responseStream, ServerCallContext context)
         {
+            Console.WriteLine("===========OUTPUT===================");
             //send a response for each request as they are read
             //complex scenarios like reading requests and sending responses simultaneously are possible
             while (await requestStream.MoveNext())
             {
-                Console.WriteLine($"Message received -  {requestStream.Current}");
+                Console.WriteLine($"Message received from client -  {requestStream.Current}");
 
-                Console.WriteLine($"Sending -  {requestStream.Current}");
+                Console.WriteLine($"Sending message to client -  {requestStream.Current}");
 
                 //place a message on the stream
                 await responseStream.WriteAsync(new ReplyMessage(){MessageValue = $"Processed {requestStream.Current}"});
@@ -66,7 +70,8 @@ namespace gRPC.Demo.Service.Services
 
         public override Task<ReplyMessage> HeaderAndTrailerUnaryDemo(RequestMessage request, ServerCallContext context)
         {
-            Console.WriteLine($"Message recieved -  {request.MessageValue}");
+            Console.WriteLine("===========OUTPUT===================");
+            Console.WriteLine($"Message recieved from client -  {request.MessageValue}");
 
             //access request headers
             foreach (var header in context.RequestHeaders)
